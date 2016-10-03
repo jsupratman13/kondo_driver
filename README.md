@@ -20,6 +20,23 @@ This package contains ics read/write code (ics.c, ics.h) from [libkondo4 project
 
 # Quick start
 
+##Detecting USB
+This step is require to recognize the device driver on Ubuntu 14.04
+```
+sudo modprobe ftdi_sio
+sudo su
+echo "165C 0009" > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+exit
+sudo chmod 0666 /dev/ttyUSB0
+```
+
+##Installing necessary packages
+```
+sudo apt-get install ros-[distribution]-joint-state-controller
+sudo apt-get install ros-[distribution]-effort-controllers
+sudo apt-get install ros-[distribution]-position-controllers
+```
+
 ## Setting servo ID.
 Connect each servo and the adapter one to one.
 For setting servo ID, you can use ics_set_id.
