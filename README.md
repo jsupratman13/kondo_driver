@@ -20,7 +20,7 @@ This package contains ics read/write code (ics.c, ics.h) from [libkondo4 project
 
 # Quick start
 
-##Detecting USB
+##Detecting device driver
 This step is require to recognize the device driver on Ubuntu 14.04
 ```
 sudo modprobe ftdi_sio
