@@ -211,6 +211,7 @@ int b3m_servo_mode(B3MData * r, UINT id, UCHAR option);
 
 // servo setting commands
 int b3m_get_angle(B3MData * r, UINT id, int *deg100);
+int b3m_get_target_angle(B3MData * r, UINT id, int *deg100);
 int b3m_get_velocity(B3MData * r, UINT id, int *deg100);
 int b3m_get_pwm_duty_ratio(B3MData * r, UINT id, int *duty_ratio);
 

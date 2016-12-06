@@ -437,6 +437,24 @@ int b3m_get_angle(B3MData * r, UINT id, int *deg100)
 	return 0;
 }
 
+/*!
+ * @brief get target servo position
+ *
+ * @param[in] id the servo id, 0-255 (255: broadcast)
+ * @param[out] deg100 the angle * 100
+ * @return error status
+ */
+int b3m_get_target_angle(B3MData * r, UINT id, int *deg100){
+	assert(r);
+
+	UCHAR data[2];
+	if (b3m_get_status(r, id, B3M_SERVO_DESIRED_POSITION, data, 2)){
+		b3m_error(r, "get status");
+	}
+	
+	*deg100 = (int)((short)((data[1] << 8) + data[0]));
+	return 0;
+}
 
 /*!
  * @brief Get servo velocity

@@ -41,6 +41,7 @@ private:
 	int min_angle, max_angle;
 public:
 	double cmd, pos, vel, eff;
+	double pos_t;
 	std::string joint_name;
 	
 	bool set_power (kondo_driver::setPower::Request &req, kondo_driver::setPower::Response &res) {
@@ -119,6 +120,9 @@ public:
 			b3m_set_angle(b3m, id, deg100);
 			b3m_get_angle(b3m, id, &deg100);
 			pos = deg100_to_radian(deg100);
+			b3m_get_target_angle(b3m, id, &deg100); //TODO: test area!
+			pos_t = deg100_to_radian(deg100);
+			eff = 0.5*(pos_t-pos);
 
 //			if (!b3m_set_angle_velocity(b3m, id, &deg100, DESIRED_VELOCITY)){
 //				pos = deg100_to_radian(deg100);

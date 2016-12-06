@@ -59,8 +59,8 @@ Each field is;
 
 * joint: Name of joint 
 * id: Servo's ICS id. It is set by utility.
-* min_anlge: Minimum angle of servo [deg.]
-* max_anlge: Maximum angle of servo [deg.]
+* min_angle: Minimum angle of servo [deg.]
+* max_angle: Maximum angle of servo [deg.]
 * speed: speed paramter. See ICS manual.
 * stretch: stretch parameter. See ICS manual.
 
