@@ -1,0 +1,73 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 10
+
+shoulder_roll_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: shoulder_roll_joint
+
+shoulder_pitch_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: shoulder_pitch_joint
+
+elbow_pitch_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: elbow_pitch_joint
+
+wrist_pitch_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: wrist_pitch_joint
+
+wrist_yaw_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: wrist_yaw_joint
+
+wrist_roll_controller:
+  type: position_controllers/JointPositionController
+  publish_rate: 50
+  base_frame_id: base_link
+  joint: wrist_roll_joint
+
+manipulator:
+  left_arm_controller:
+    type: position_controllers/JointTrajectoryController
+    joints:
+      - shoulder_roll_joint
+      - shoulder_pitch_joint
+      - elbow_pitch_joint
+      - wrist_pitch_joint
+      - wrist_yaw_joint
+      - wrist_roll_joint
+    action_monitor_rate: 10
+    constraints:
+      goal_time: 1.0
+      stopped_velocity_tolerance: 1.0
+      shoulder_roll_joint:
+        trajectory: 1.0
+        goal: 1.0
+      shoulder_pitch_joint:
+        trajectory: 1.0
+        goal: 1.0
+      elbow_pitch_joint:
+        trajectory: 1.0
+        goal: 1.0
+      wrist_pitch_joint:
+        trajectory: 1.0
+        goal: 1.0
+      wrist_yaw_joint:
+        trajectory: 1.0
+        goal: 1.0
+      wrist_roll_joint:
+        trajectory: 1.0
+        goal: 1.0
+
