@@ -20,7 +20,7 @@ This package contains ics read/write code (ics.c, ics.h) from [libkondo4 project
 
 # Quick start
 
-##Detecting device driver
+## Detecting device driver
 This step is require to recognize the device driver on Ubuntu 14.04
 ```
 sudo modprobe ftdi_sio
@@ -30,7 +30,7 @@ exit
 sudo chmod 0666 /dev/ttyUSB0
 ```
 
-##Installing necessary packages
+## Installing necessary packages
 ```
 sudo apt-get install ros-[distribution]-joint-state-controller
 sudo apt-get install ros-[distribution]-effort-controllers
