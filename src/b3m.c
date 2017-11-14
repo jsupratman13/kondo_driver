@@ -52,12 +52,23 @@ int b3m_init(B3MData * r, const char* serial_port)
 
 	struct termios tio;
 
-	r->fd = open(serial_port, O_RDWR);
+	r->fd = open(serial_port, O_RDWR | O_NOCTTY);
 	if (ioctl(r->fd, TCGETS, &tio)){
 		b3m_error(r, "Get serial port parameters");
 	}
 	tio.c_cflag &= ~CBAUD;
 	tio.c_cflag |= B3M_BAUD;
+    tio.c_cflag &= ~PARENB; //set no parity
+    tio.c_cflag &= ~CSTOPB; //1 stop bit
+    tio.c_cflag &= ~CSIZE; // clear mask for setting the data size
+    tio.c_cflag |= CS8;
+    tio.c_cflag |= CREAD;
+    tio.c_cflag |= CLOCAL;
+    tio.c_iflag = IGNBRK | IGNPAR;
+    tio.c_oflag = 0;
+    tio.c_lflag = 0;
+    tcflush(r->fd, TCIOFLUSH);
+
 	if (ioctl(r->fd, TCSETS, &tio)){
 		b3m_error(r, "Set serial port parameters");
 	}
