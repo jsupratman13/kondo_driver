@@ -56,18 +56,19 @@ int b3m_init(B3MData * r, const char* serial_port)
 	if (ioctl(r->fd, TCGETS, &tio)){
 		b3m_error(r, "Get serial port parameters");
 	}
-	tio.c_cflag &= ~CBAUD;
-	tio.c_cflag |= B3M_BAUD;
-    tio.c_cflag &= ~PARENB; //set no parity
-    tio.c_cflag &= ~CSTOPB; //1 stop bit
-    tio.c_cflag &= ~CSIZE; // clear mask for setting the data size
-    tio.c_cflag |= CS8;
-    tio.c_cflag |= CREAD;
-    tio.c_cflag |= CLOCAL;
-    tio.c_iflag = IGNBRK | IGNPAR;
-    tio.c_oflag = 0;
-    tio.c_lflag = 0;
-    tcflush(r->fd, TCIOFLUSH);
+
+	tio.c_cflag &= ~CBAUD;          // clear mask for setting baud rate
+	tio.c_cflag |= B3M_BAUD;        // set B3M baud
+    tio.c_cflag &= ~PARENB;         // set no parity
+    tio.c_cflag &= ~CSTOPB;         // 1 stop bit
+    tio.c_cflag &= ~CSIZE;          // clear mask for setting the data size
+    tio.c_cflag |= CS8;             // character size 8 bit
+    tio.c_cflag |= CREAD;           // enable receiver
+    tio.c_cflag |= CLOCAL;          // ignore modem status line
+    tio.c_iflag = IGNBRK | IGNPAR;  // ignore break condition and characer with parity error
+    tio.c_oflag = 0;                // raw mode
+    tio.c_lflag = 0;                // noncanonical input
+    tcflush(r->fd, TCIOFLUSH);      // flush current port setting
 
 	if (ioctl(r->fd, TCSETS, &tio)){
 		b3m_error(r, "Set serial port parameters");
