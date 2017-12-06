@@ -117,7 +117,10 @@ public:
 			eff = 0;
 		}else{
 			b3m_set_angle(b3m, id, deg100);
-			b3m_get_angle(b3m, id, &deg100);
+			int flag = b3m_get_angle(b3m, id, &deg100);
+			if(flag < 0){
+    			ros::shutdown();
+			}
 			pos = deg100_to_radian(deg100);
 			eff = pos - radian; 
 
@@ -249,7 +252,7 @@ class KondoDriver : public hardware_interface::RobotHW
 		}
 	}
 	ros::Time getTime() const {return ros::Time::now();}
-	ros::Duration getPeriod() const {return ros::Duration(0.01);}
+	ros::Duration getPeriod() const {return ros::Duration(0.02);}
 };
 
 int main(int argc, char **argv)
