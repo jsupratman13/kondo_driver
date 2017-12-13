@@ -35,6 +35,7 @@ int target_deg100[256];
 #define b3m_error(ki, err) { \
   snprintf(ki->error, 128, "ERROR: %s: %s\n", __func__, err); \
   fprintf(stderr,"%s\n", ki->error); \
+  printf("%s\n", err); \
   return -1; }
 
 /*!
@@ -58,16 +59,18 @@ int b3m_init(B3MData * r, const char* serial_port)
 	}
 
 	tio.c_cflag &= ~CBAUD;          // clear mask for setting baud rate
-	tio.c_cflag |= B3M_BAUD;        // set B3M baud
     tio.c_cflag &= ~PARENB;         // set no parity
     tio.c_cflag &= ~CSTOPB;         // 1 stop bit
     tio.c_cflag &= ~CSIZE;          // clear mask for setting the data size
+	tio.c_cflag |= B3M_BAUD;        // set B3M baud
     tio.c_cflag |= CS8;             // character size 8 bit
     tio.c_cflag |= CREAD;           // enable receiver
     tio.c_cflag |= CLOCAL;          // ignore modem status line
     tio.c_iflag = IGNBRK | IGNPAR;  // ignore break condition and characer with parity error
     tio.c_oflag = 0;                // raw mode
     tio.c_lflag = 0;                // noncanonical input
+    tio.c_cc[VMIN] = 0;             // 0 return all else until n byte received
+    tio.c_cc[VTIME] = 1;            // 0 block forever else until n tenth second
     tcflush(r->fd, TCIOFLUSH);      // flush current port setting
 
 	if (ioctl(r->fd, TCSETS, &tio)){
@@ -166,6 +169,7 @@ int b3m_read_timeout(B3MData * r, int n, long usecs)
 	// spam the read until data arrives
 	do {
 	    if ((i = read(r->fd, &(r->swap[bytes_read]), n - bytes_read)) < 0) {
+	    //if ((i = read(r->fd, &(r->swap[bytes_read]), sizeof(&(r->swap[bytes_read])))) < 0) {
 			b3m_error(r, "Read data");
 	    }
 	    bytes_read += i;

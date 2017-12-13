@@ -117,8 +117,7 @@ public:
 			eff = 0;
 		}else{
 			b3m_set_angle(b3m, id, deg100);
-			int flag = b3m_get_angle(b3m, id, &deg100);
-			if(flag < 0){
+			if(b3m_get_angle(b3m, id, &deg100) < 0){
     			ros::shutdown();
 			}
 			pos = deg100_to_radian(deg100);
