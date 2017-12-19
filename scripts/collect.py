@@ -5,7 +5,7 @@ from nav_msgs.msg import Odometry
 
 class Robot(object):
     def __init__(self):
-        rospy.Subscriber('/dummy', JointState, self.__get_state)
+        self.sub = rospy.Subscriber('/manipulator/joint_states', JointState, self.__get_state)
         rospy.Subscriber('/icart_mini/odom', Odometry, self.__get_odom)
 
         self.joint_names = []
@@ -46,6 +46,7 @@ class Robot(object):
 
         #self.joint_names = []
         #self.odom = []
+        #print self.sub.get_num_connections()
         
 
 if __name__ == '__main__':
@@ -53,9 +54,11 @@ if __name__ == '__main__':
     rospy.loginfo('start')
     robot = Robot()
     i = 0
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(20)
     try:
         while not i > 500 or rospy.is_shutdown():
+            if not robot.initial_flag and not robot.sub.get_num_connections():
+                break
             robot.collect(i)
             i += 1
             rate.sleep()

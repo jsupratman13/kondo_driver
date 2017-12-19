@@ -1,6 +1,6 @@
 joint_state_controller:
   type: joint_state_controller/JointStateController
-  publish_rate: 10
+  publish_rate: 20
 
 shoulder_roll_controller:
   type: position_controllers/JointPositionController
@@ -42,7 +42,6 @@ manipulator:
   left_arm_controller:
     type: position_controllers/JointTrajectoryController
     joints:
-      - shoulder_roll_joint
       - shoulder_pitch_joint
       - elbow_pitch_joint
       - wrist_pitch_joint
@@ -52,9 +51,6 @@ manipulator:
     constraints:
       goal_time: 1.0
       stopped_velocity_tolerance: 1.0
-      shoulder_roll_joint:
-        trajectory: 1.0
-        goal: 1.0
       shoulder_pitch_joint:
         trajectory: 1.0
         goal: 1.0

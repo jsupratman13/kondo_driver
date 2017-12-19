@@ -1,8 +1,8 @@
-product_id: 0x0006
+product_id: 0x0009
 
 shoulder_roll_driver:
   joint_name: shoulder_roll_joint
-  id: 21
+  id: 22
   min_angle: -320
   max_angle: 320
   stretch: 60
@@ -12,7 +12,7 @@ shoulder_roll_driver:
 
 shoulder_pitch_driver:
   joint_name: shoulder_pitch_joint
-  id: 1
+  id: 0
   min_angle: -90
   max_angle: 90
   stretch: 60
