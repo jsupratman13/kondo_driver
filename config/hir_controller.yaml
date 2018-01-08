@@ -46,7 +46,6 @@ manipulator:
       - elbow_pitch_joint
       - wrist_pitch_joint
       - wrist_yaw_joint
-      - wrist_roll_joint
     action_monitor_rate: 10
     constraints:
       goal_time: 1.0
@@ -61,9 +60,6 @@ manipulator:
         trajectory: 1.0
         goal: 1.0
       wrist_yaw_joint:
-        trajectory: 1.0
-        goal: 1.0
-      wrist_roll_joint:
         trajectory: 1.0
         goal: 1.0
 
