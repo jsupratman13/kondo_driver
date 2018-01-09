@@ -52,7 +52,7 @@ wrist_yaw_driver:
 
 wrist_roll_driver:
   joint_name: wrist_roll_joint
-  id: 5
+  id: 21
   min_angle: -320
   max_angle: 320
   stretch: 60
