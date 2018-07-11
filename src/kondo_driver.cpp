@@ -116,7 +116,10 @@ public:
 			pos = radian;
 			eff = 0;
 		}else{
-			b3m_set_angle(b3m, id, deg100);
+//			b3m_set_angle(b3m, id, deg100);
+			if (!b3m_set_angle_velocity(b3m, id, &deg100, DESIRED_VELOCITY)){
+				pos = deg100_to_radian(deg100);
+			}
 			if(b3m_get_angle(b3m, id, &deg100) < 0){
     			ros::shutdown();
 			}
